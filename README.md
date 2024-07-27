@@ -114,6 +114,8 @@ If the storage base is lower than the binary end, parts of the firmware will be 
 ## Super Simple Example
 
 First, LVGL needs to be imported and initialized
+*HEEN* But something goes wrong,
+so I need to modify as reference with https://github.com/lvgl/lv_binding_micropython/blob/master/examples/example3.py
 
 ```python
 import lvgl as lv
@@ -132,10 +134,10 @@ WIDTH = 480
 HEIGHT = 320
 
 event_loop = event_loop()
-disp_drv = lv.sdl_window_create(WIDTH, HEIGHT)
+disp_drv = lv.sdl_window_create(WIDTH, HEIGHT)  # 이거 하는 순간 화면에 sdl window 하나 뜬다.
 mouse = lv.sdl_mouse_create()
 keyboard = lv.sdl_keyboard_create()
-keyboard.set_group(self.group)
+keyboard.set_group(self.group)  # 에러 발생. NameError: name 'self' isn't defined
 ```
 
 Here is an alternative example, for registering ILI9341 drivers on Micropython ESP32 port:
@@ -169,14 +171,17 @@ Now you can create the GUI itself:
 # Create a screen with a button and a label
 
 scr = lv.obj()
-btn = lv.btn(scr)
-btn.align_to(lv.scr_act(), lv.ALIGN.CENTER, 0, 0)
+# btn = lv.btn(scr)  이런 btn
+btn = lv.button(scr)
+# btn.align_to(lv.scr_act(), lv.ALIGN.CENTER, 0, 0)
+btn.align(lv.ALIGN.TOP_RIGHT, -5, 5)
 label = lv.label(btn)
 label.set_text("Hello World!")
 
 # Load the screen
 
-lv.scr_load(scr)
+# lv.scr_load(scr) -> AttributeError: 'module' object has no attribute 'scr_load'
+lv.screen_load(scr)
 
 ```
 
