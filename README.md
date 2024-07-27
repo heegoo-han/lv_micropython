@@ -52,7 +52,8 @@ Python 3 is required, but you can install some other version of python3 instead 
 5. `make -C mpy-cross`
 6. `make -C ports/unix submodules`
 7. `make -C ports/unix`
-8. `./ports/unix/micropython`
+*heen*
+8. `./ports/unix/build-standard/micropython`
 
 ## Unix (MAC OS) port
 
